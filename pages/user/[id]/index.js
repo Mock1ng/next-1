@@ -1,12 +1,7 @@
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 import styles from '../../../styles/Home.module.css'
 
 const index = ({ user }) => {
-  const router = useRouter();
-  const { id } = router.query;
-
-  console.log(user);
 
   return (
     <div className={styles.container}>
@@ -21,7 +16,7 @@ const index = ({ user }) => {
   )
 }
 
-export const getStaticProps = async context => {
+export const getServerSideProps = async context => {
   const res = await fetch(`https://jsonplaceholder.typicode.com/users/${context.params.id}`)
   const user = await res.json()
 
@@ -32,19 +27,19 @@ export const getStaticProps = async context => {
   }
 }
 
-export const getStaticPaths = async () => {
-  const res = await fetch(`https://jsonplaceholder.typicode.com/users`)
-  const users = await res.json()
+// export const getStaticPaths = async () => {
+//   const res = await fetch(`https://jsonplaceholder.typicode.com/users`)
+//   const users = await res.json()
 
-  const ids = users.map(user => user.id)
-  const paths = ids.map(id => (
-    { params: { id: id.toString() } }
-  ))
+//   const ids = users.map(user => user.id)
+//   const paths = ids.map(id => (
+//     { params: { id: id.toString() } }
+//   ))
 
-  return {
-    paths,
-    fallback: false
-  }
-}
+//   return {
+//     paths,
+//     fallback: false
+//   }
+// }
 
 export default index

@@ -4,8 +4,6 @@ import Link from 'next/link';
 
 export default function Home({ data }) {
 
-  console.log(data);
-
   return (
     <div className={styles.container}>
       <Head>
